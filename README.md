@@ -25,7 +25,7 @@ docker-compose up
 ```
 
 
-#### NiceHash
+## NiceHash
 
 Place a new order on the SHA256 hashpower marketplace.
 
@@ -33,10 +33,10 @@ Place a new order on the SHA256 hashpower marketplace.
 * Fill in the public server IP / hostname.
 * Specify the pool port configured in [`foundation-server/configs/pools/bitcoin.js`](foundation-server/configs/pools/bitcoin.js), the default is `3002`.
 * For username, specify the same tbtc address used for the above `TBTC_ADDRESS` config, the default is `tb1qc7sfev9vr5w5uqsft7rmy23s42yx50rac8ftrw`.
-* Password does not matter, use a filler like `x`.
+* Password does not matter, use a placeholder like `x`.
 
-![nicehash-pool-setup](images/nicehash-pool-setup.png)
+<img src='images/nicehash-pool-setup.png' width='600'>
 
 Click "test pool" and all tests should pass:
 
-![nicehash-pool-verification](images/nicehash-pool-verification.png)
+<img src='images/nicehash-pool-verification.png' width='600'>
