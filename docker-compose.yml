@@ -1,8 +1,6 @@
 version: "3.9"
 services:
   foundation-server:
-    depends_on:
-      - bitcoin
     build:
       context: ./foundation-server
     restart: always
@@ -14,8 +12,6 @@ services:
       - '3002:3002'
       - '3001:3001'
   redis:
-    depends_on:
-      - bitcoin
     image: redis:alpine
     expose:
       - '6379'
@@ -24,9 +20,6 @@ services:
   bitcoin:
     image: ruimarinho/bitcoin-core:22.0
     restart: always
-    depends_on:
-      bootstrap-chaindata:
-        condition: service_completed_successfully
     volumes:
       - ./bitcoin-testnet-data:/home/bitcoin/.bitcoin
     command:
@@ -47,14 +40,3 @@ services:
     # ports:
     #  - '18332:18332'
     #  - '18333:18333'
-  bootstrap-chaindata:
-    image: ubuntu:20.04
-    volumes:
-      - ./bitcoin-testnet-data/testnet3:/chaindata
-    working_dir: /chaindata
-    command: >
-        bash -c "
-        [ $(ls -A .) ] || exit 0
-        && apt-get update -qq
-        && apt-get install -y -q curl zstd
-        && curl -s -f https://m-shared-public.s3.eu-central-1.amazonaws.com/bitcoin-testnet-chain.tar.zst | tar --use-compress-program=unzstd -xvf -"
