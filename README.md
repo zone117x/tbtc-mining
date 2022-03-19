@@ -1,7 +1,7 @@
 # Usage Instructions
 
 ### Requirements:
- * Docker Compose
+ * Docker and docker-compose
  * At least 100GB of free disk space
 
 #### Clone repo
@@ -23,6 +23,32 @@ Specify the testnet btc address in the `TBTC_ADDRESS` environment variable insid
 docker-compose up
 ```
 
+#### Transfering tBTC
+First, determine the bitcoin docker container ID:
+```shell
+docker-compose ps -q bitcoin
+# d40f951ff1aa072425110422732fb79b55f34af652d2e653cb94156ee73ad004 (example output)
+```
+
+Verify `bitcoin-cli` is working with:
+```shell
+docker exec <YOUR_CONTAINER_ID> bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword getmininginfo
+```
+
+Create a wallet with [`createwallet`](https://developer.bitcoin.org/reference/rpc/createwallet.html):
+```shell
+docker exec <YOUR_CONTAINER_ID> bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword createwallet ""
+```
+
+Import the private key to your mining reward address with [`importprivkey`](https://developer.bitcoin.org/reference/rpc/importprivkey.html):
+```shell
+docker exec <YOUR_CONTAINER_ID> bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword importprivkey "<YOUR_PRIVATE_KEY>"
+```
+
+Send tBTC with [`sendtoaddress`](https://developer.bitcoin.org/reference/rpc/sendtoaddress.html):
+```shell
+docker exec <YOUR_CONTAINER_ID> bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword sendtoaddress "<RECIPIENT_ADDRESS>" <tBTC_AMOUNT>
+```
 
 ## NiceHash
 
