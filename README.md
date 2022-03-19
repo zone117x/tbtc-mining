@@ -50,7 +50,7 @@ Send tBTC with [`sendtoaddress`](https://developer.bitcoin.org/reference/rpc/sen
 docker exec <YOUR_CONTAINER_ID> bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword sendtoaddress "<RECIPIENT_ADDRESS>" <tBTC_AMOUNT>
 ```
 
-## NiceHash
+## Mining with NiceHash
 
 Place a new order on the SHA256 hashpower marketplace.
 
