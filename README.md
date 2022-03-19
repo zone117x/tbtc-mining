@@ -3,7 +3,6 @@
 ### Requirements:
  * Docker Compose
  * At least 100GB of free disk space
- * Ubuntu-20.x (if using the bootstrap script)
 
 #### Clone repo
 ```shell
