@@ -1,9 +1,5 @@
-# FROM amd64/node:12-bullseye
-# FROM amd64/node:12-alpine
 FROM amd64/ubuntu:20.04
 
-# RUN apt-get update && apt-get install -y -q --no-install-recommends ca-certificates curl libsodium-dev libboost-system-dev git
-# RUN apk add alpine-sdk libsodium-dev boost-dev git
 RUN apt-get update && apt-get install -y -q --no-install-recommends ca-certificates curl build-essential libsodium-dev libboost-system-dev git
 
 # Install NodeJS v12.x
@@ -18,10 +14,6 @@ RUN cd / && git clone https://github.com/blinkhash/foundation-server.git \
 
 # Build foundation server
 RUN cd /foundation-server && npm i
-
-# Copy in config
-# COPY main/config.js /foundation-server/configs/main/config.js
-# COPY pools/bitcoin.js /foundation-server/configs/pools/bitcoin.js
 
 WORKDIR /foundation-server
 CMD [ "npm", "run", "start" ]
