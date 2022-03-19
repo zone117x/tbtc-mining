@@ -23,4 +23,5 @@ RUN cd /foundation-server && npm i
 # COPY main/config.js /foundation-server/configs/main/config.js
 # COPY pools/bitcoin.js /foundation-server/configs/pools/bitcoin.js
 
+WORKDIR /foundation-server
 CMD [ "npm", "run", "start" ]
