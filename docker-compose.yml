@@ -4,17 +4,24 @@ services:
     build:
       context: ./foundation-server
     restart: always
+    depends_on:
+      - bitcoin
     environment:
       - TBTC_ADDRESS=tb1qc7sfev9vr5w5uqsft7rmy23s42yx50rac8ftrw
     volumes:
       - ./foundation-server/configs:/foundation-server/configs/
-    ports:
-      - '3002:3002'
-      - '3001:3001'
+    network_mode: host
+    # ports:
+    #   - '3002:3002'
+    #   - '3001:3001'
   redis:
+    restart: always
     image: redis:alpine
-    expose:
-      - '6379'
+    network_mode: host
+    volumes: 
+      - ./redis-cache:/data
+    # expose:
+    #   - '6379'
     # ports:
     #   - '6379:6379'
   bitcoin:
@@ -29,14 +36,18 @@ services:
       -maxconnections=250
       -rpcuser=rpcuser
       -rpcpassword=rpcpassword
-      -rpcallowip=10.211.0.0/16
-      -rpcallowip=172.17.0.0/16
-      -rpcallowip=192.168.0.0/16
+      -rpcbind=127.0.0.1
       -deprecatedrpc=accounts
       -rpcport=18332
-    expose:
-      - '18332'
-      - '18333'
+    network_mode: host
+    healthcheck:
+      test: curl -f --data-binary '{"jsonrpc":"1.0","id":"curltext","method":"getblockchaininfo","params":[]}' -H 'content-type:text/plain;' http://rpcuser:rpcpassword@127.0.0.1:18332 || exit 1
+      interval: 5s
+      timeout: 30s
+      retries: 99999999
+    # expose:
+    #   - '18332'
+    #   - '18333'
     # ports:
     #  - '18332:18332'
     #  - '18333:18333'
