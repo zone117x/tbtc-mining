@@ -4,8 +4,9 @@ services:
     build:
       context: ./foundation-server
     restart: always
-    depends_on:
-      - bitcoin
+    depends_on: 
+      bitcoin:
+        condition: service_healthy
     environment:
       - TBTC_ADDRESS=tb1qc7sfev9vr5w5uqsft7rmy23s42yx50rac8ftrw
     volumes:
