@@ -1,3 +1,5 @@
 bitcoin-testnet-data
 bitcoin-testnet-chain.tar.zst
 redis-cache
+data/bitcoin/testnet3
+data/pg
