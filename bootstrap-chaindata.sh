@@ -1,7 +1,7 @@
 #!/bin/bash
 
 dir="$(dirname "$(realpath "$0")")"
-output_dir="$dir/bitcoin-testnet-data/testnet3/"
+output_dir="$dir/data/bitcoin/testnet3/"
 echo "Output dir: $output_dir"
 mkdir -p $output_dir
 
