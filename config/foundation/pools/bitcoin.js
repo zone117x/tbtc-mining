@@ -54,9 +54,9 @@ config.primary.statistics.enabled = true;
 
 // ZMQ Configuration
 config.primary.zmq = {};
-config.primary.zmq.enabled = false;
-config.primary.zmq.host = '127.0.0.1';
-config.primary.zmq.port = 29000;
+config.primary.zmq.enabled = true;
+config.primary.zmq.host = process.env.BITCOIN_ZMQ_HOST;
+config.primary.zmq.port = parseInt(process.env.BITCOIN_ZMQ_PORT);
 
 // Port Configuration
 config.ports = [];

@@ -21,6 +21,8 @@ services:
       BITCOIN_RPC_PORT: 18332
       BITCOIN_RPC_USER: btc
       BITCOIN_RPC_PASSWORD: btc
+      BITCOIN_ZMQ_HOST: bitcoin
+      BITCOIN_ZMQ_PORT: 29000
       RECIPIENT_ADDR: tb1qc7sfev9vr5w5uqsft7rmy23s42yx50rac8ftrw
     volumes:
       - ./config/foundation:/app/configs
@@ -63,6 +65,10 @@ services:
       -rpcallowip=0.0.0.0/0
       -rpcport=18332
       -deprecatedrpc=accounts
+      -zmqpubrawblock=tcp://0.0.0.0:29000
+      -zmqpubrawtx=tcp://0.0.0.0:29000
+      -zmqpubhashtx=tcp://0.0.0.0:29000
+      -zmqpubhashblock=tcp://0.0.0.0:29000
     healthcheck:
       test: curl -f --data-binary '{"jsonrpc":"1.0","id":"curltext","method":"getblockchaininfo","params":[]}' -H 'content-type:text/plain;' http://btc:btc@127.0.0.1:18332 || exit 1
       interval: 5s
