@@ -80,3 +80,10 @@ services:
     # ports:
     #  - '18332:18332'
     #  - '18333:18333'
+
+  bootstrap:
+    profiles: ["bootstrap"]
+    build:
+      dockerfile: ./dockerfiles/bootstrap.Dockerfile
+    volumes:
+      - ./data/bitcoin/testnet3:/data
