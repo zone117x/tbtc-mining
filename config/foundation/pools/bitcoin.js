@@ -68,11 +68,11 @@ ports1.type = 'shared';
 ports1.tls = false;
 ports1.difficulty = {};
 ports1.difficulty.initial = 524288;
-ports1.difficulty.minimum = 262144;
+ports1.difficulty.minimum = 524288;
 ports1.difficulty.maximum = 1048576;
 ports1.difficulty.targetTime = 15;
 ports1.difficulty.retargetTime = 90;
-ports1.difficulty.variance = 0.3;
+ports1.difficulty.variance = 0.9;
 config.ports.push(ports1);
 
 // Settings Configuration
