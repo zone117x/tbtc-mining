@@ -16,17 +16,17 @@ config.client.tls = false;
 config.client.master = {};
 config.client.master.host = "127.0.0.1";
 config.client.master.port = 5432;
-config.client.master.username = "";
-config.client.master.password = "";
-config.client.master.database = "";
+config.client.master.username = "postgres";
+config.client.master.password = "postgres";
+config.client.master.database = "postgres";
 
 // Worker Database
 config.client.worker = {};
 config.client.worker.host = "127.0.0.1";
 config.client.worker.port = 5432;
-config.client.worker.username = "";
-config.client.worker.password = "";
-config.client.worker.database = "";
+config.client.worker.username = "postgres";
+config.client.worker.password = "postgres";
+config.client.worker.database = "postgres";
 
 // Clustering Configuration
 config.clustering = {};
@@ -41,10 +41,10 @@ config.tls.cert = "";
 
 // Server Configuration
 config.server = {};
-config.server.host = "0.0.0.0";
+config.server.enabled = true;
+config.server.host = "127.0.0.1";
 config.server.port = 3001;
 config.server.tls = false;
-module.exports = config;
 
 // Cache Configuration
 config.server.cache = {};

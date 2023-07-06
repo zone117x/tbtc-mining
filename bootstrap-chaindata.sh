@@ -1,7 +1,11 @@
 #!/bin/bash
 
 for cmd in zstd curl; do
-	command -v "${cmd}" >/dev/null 2>&1 ||  echo "Missing command: ${cmd}"
+	command -v "${cmd}" >/dev/null 2>&1 
+	if [ "$?" -ne "0" ]; then
+		echo "Missing command: ${cmd}";
+		exit 1
+	fi
 done
 
 dir="$(dirname "$(realpath "$0")")"

@@ -5,12 +5,12 @@ services:
       context: ./foundation-server
     restart: always
     depends_on:
+      postgres:
+        condition: service_started
       bitcoin:
         condition: service_healthy
-      postgres:
-        condition: service_healthy
     environment:
-      - TBTC_ADDRESS=tb1qc7sfev9vr5w5uqsft7rmy23s42yx50rac8ftrw
+      - TBTC_ADDRESS=mtEoVpBV5H8bbmNDEPwaoJHXnF1MxbkkQf
     volumes:
       - ./foundation-server/configs:/foundation-server/configs/
     network_mode: host
@@ -24,12 +24,14 @@ services:
     shm_size: 256MB
     network_mode: host
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
-      - POSTGRES_DB=${POSTGRES_DB:-postgres}
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+    expose:
+      - "5432"
     ports:
-      - 5432:5432
+      - "5432:5432"
 
   bitcoin:
     image: ruimarinho/bitcoin-core:22.0

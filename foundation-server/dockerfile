@@ -4,10 +4,14 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends ca-certifica
 
 
 # Clone foundation server
-RUN cd / && git clone https://github.com/blinkhash/foundation-server.git /foundation-server
+RUN git clone https://github.com/blinkhash/foundation-v2-server.git /foundation-server \
+    && cd /foundation-server \
+
+# Install foundation server templates
+RUN npm install --save foundation-v2-bitcoin
 
 # Build foundation server
-RUN cd /foundation-server && npm i
+RUN npm i
 
 WORKDIR /foundation-server
 CMD [ "npm", "run", "start" ]
