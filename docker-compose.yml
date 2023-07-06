@@ -32,6 +32,8 @@ services:
       - "5432"
     ports:
       - "5432:5432"
+    healthcheck:
+      test: pg_isready -U postgres
 
   bitcoin:
     image: ruimarinho/bitcoin-core:22.0
