@@ -6,7 +6,7 @@ services:
     restart: always
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_completed_successfully
       bitcoin:
         condition: service_healthy
     environment:
