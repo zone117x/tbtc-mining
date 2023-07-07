@@ -40,25 +40,25 @@ docker-compose ps -q bitcoin
 Verify `bitcoin-cli` is working with:
 
 ```shell
-docker exec <YOUR_CONTAINER_ID> bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword getmininginfo
+docker exec  tbtc-mining-bitcoin-1 bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword getmininginfo
 ```
 
 Create a wallet with [`createwallet`](https://developer.bitcoin.org/reference/rpc/createwallet.html):
 
 ```shell
-docker exec <YOUR_CONTAINER_ID> bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword createwallet ""
+docker exec  tbtc-mining-bitcoin-1 bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword createwallet ""
 ```
 
 Import the private key to your mining reward address with [`importprivkey`](https://developer.bitcoin.org/reference/rpc/importprivkey.html):
 
 ```shell
-docker exec <YOUR_CONTAINER_ID> bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword importprivkey "<YOUR_PRIVATE_KEY>"
+docker exec tbtc-mining-bitcoin-1 bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword importmulti '[{ "scriptPubKey": { "address": "<TBTC_ADDRESS>" }, "timestamp":"now", "keys": [ "<YOUR_PRIVATE_KEY_WIF_FORMAT>" ]}]' '{"rescan": true}'
 ```
 
 Send tBTC with [`sendtoaddress`](https://developer.bitcoin.org/reference/rpc/sendtoaddress.html):
 
 ```shell
-docker exec <YOUR_CONTAINER_ID> bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword sendtoaddress "<RECIPIENT_ADDRESS>" <tBTC_AMOUNT>
+docker exec  tbtc-mining-bitcoin-1 bitcoin-cli -rpcport=18332 -rpcuser=rpcuser -rpcpassword=rpcpassword sendtoaddress "<RECIPIENT_ADDRESS>" <tBTC_AMOUNT>
 ```
 
 ## Mining with NiceHash
