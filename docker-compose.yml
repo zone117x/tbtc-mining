@@ -4,7 +4,9 @@ services:
     build:
       context: ./foundation-server
     restart: always
-    depends_on: 
+    depends_on:
+      postgres:
+        condition: service_healthy
       bitcoin:
         condition: service_healthy
     environment:
@@ -12,26 +14,33 @@ services:
     volumes:
       - ./foundation-server/configs:/foundation-server/configs/
     network_mode: host
-    # ports:
-    #   - '3002:3002'
-    #   - '3001:3001'
-  redis:
+    ports:
+      - "3002:3002"
+      - "3001:3001"
+
+  postgres:
     restart: always
-    image: redis:alpine
+    image: postgres:alpine
+    shm_size: 256MB
     network_mode: host
-    volumes: 
-      - ./redis-cache:/data
-    # expose:
-    #   - '6379'
-    # ports:
-    #   - '6379:6379'
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: pg_isready -U postgres
+
   bitcoin:
     image: ruimarinho/bitcoin-core:22.0
     restart: always
     volumes:
       - ./bitcoin-testnet-data:/home/bitcoin/.bitcoin
-    command:
-      -printtoconsole
+    command: -printtoconsole
       -testnet=1
       -server
       -maxconnections=250

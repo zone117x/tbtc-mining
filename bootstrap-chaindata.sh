@@ -1,5 +1,13 @@
 #!/bin/bash
 
+for cmd in zstd curl; do
+	command -v "${cmd}" >/dev/null 2>&1 
+	if [ "$?" -ne "0" ]; then
+		echo "Missing command: ${cmd}";
+		exit 1
+	fi
+done
+
 dir="$(dirname "$(realpath "$0")")"
 output_dir="$dir/bitcoin-testnet-data/testnet3/"
 echo "Output dir: $output_dir"

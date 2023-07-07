@@ -1,19 +1,17 @@
-FROM amd64/ubuntu:20.04
+FROM node:12-bullseye
 
 RUN apt-get update && apt-get install -y -q --no-install-recommends ca-certificates curl build-essential libsodium-dev libboost-system-dev git
 
-# Install NodeJS v12.x
-RUN curl -fsSL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
 
 # Clone foundation server
-RUN cd / && git clone https://github.com/blinkhash/foundation-server.git \
-    && cd foundation-server \
-    # known working commit hash as of writing
-    && git checkout 5d4f182b5ffb718ca5ec4e5f5dde8872ae4a2be5
-
-# Build foundation server
-RUN cd /foundation-server && npm i
+RUN git clone https://github.com/blinkhash/foundation-v2-server.git /foundation-server 
 
 WORKDIR /foundation-server
+
+# Build foundation server
+RUN npm i 
+
+# Install foundation server templates
+RUN npm install --save foundation-v2-bitcoin 
+
 CMD [ "npm", "run", "start" ]
